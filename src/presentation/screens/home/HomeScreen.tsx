@@ -7,7 +7,7 @@ export const HomeScreen = () => {
 
   const { isLoading, data } = useQuery({
     queryKey: ['pokemon'],
-    queryFn: () => getPokemons(),
+    queryFn: () => getPokemons(0),
     staleTime: 1000 * 60 * 60, // 60 mins
   });
 
