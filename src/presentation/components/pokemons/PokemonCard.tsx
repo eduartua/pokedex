@@ -11,7 +11,10 @@ export const PokemonCard = ({pokemon}: Props) => {
   return (
     // TODO: background color
     <Card style={[
-      styles.cardContainer
+      styles.cardContainer,
+      { 
+        backgroundColor: pokemon.color,
+      }
     ]}>
       <Text style={ styles.name } variant='bodyLarge' lineBreakMode='middle'>
         {pokemon.name}
