@@ -1,44 +1,53 @@
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, Pressable, StyleSheet, View } from 'react-native';
 import { Pokemon } from '../../../domain/entities/pokemon';
 import { Text, Card } from 'react-native-paper';
 import { FadeInImage } from '../ui/FadeInImage';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { RootStackParams } from '../../navigator/StackNavigator';
 
 interface Props {
   pokemon: Pokemon;
 }
 
 export const PokemonCard = ({pokemon}: Props) => {
+
+  const navigation = useNavigation<NavigationProp<RootStackParams>>();
+
   return (
     // TODO: background color
-    <Card style={[
-      styles.cardContainer,
-      { 
-        backgroundColor: pokemon.color,
-      }
-    ]}>
-      <Text style={ styles.name } variant='bodyLarge' lineBreakMode='middle'>
-        {pokemon.name}
-        { '\n#' + pokemon.id }
-      </Text>
+    <Pressable
+      onPress={ () => navigation.navigate('PokemonScreen', { pokemonId: pokemon.id })}
+    >
+      <Card style={[
+        styles.cardContainer,
+        { 
+          backgroundColor: pokemon.color,
+        }
+      ]}>
+        <Text style={ styles.name } variant='bodyLarge' lineBreakMode='middle'>
+          {pokemon.name}
+          { '\n#' + pokemon.id }
+        </Text>
 
-      {/*  Pokeball background image */}
-      <View style={ styles.pokeballContainer }>
-        <Image
-          source={ require('../../../assets/pokeball-light.png') }
-          style={ styles.pokeball }
+        {/*  Pokeball background image */}
+        <View style={ styles.pokeballContainer }>
+          <Image
+            source={ require('../../../assets/pokeball-light.png') }
+            style={ styles.pokeball }
+          />
+        </View>
+
+        {/* Pokemon Image */}
+        <FadeInImage
+          uri={ pokemon.avatar }
+          style={ styles.pokemonImage }
         />
-      </View>
 
-      {/* Pokemon Image */}
-      <FadeInImage
-        uri={ pokemon.avatar }
-        style={ styles.pokemonImage }
-      />
+        {/* Types */}
+        <Text style={[ styles.name, { marginTop: 35 }]}>{ pokemon.types[0] }</Text>
 
-      {/* Types */}
-      <Text style={[ styles.name, { marginTop: 35 }]}>{ pokemon.types[0] }</Text>
-
-    </Card>
+      </Card>
+    </Pressable>
   )
 }
 
