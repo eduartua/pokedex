@@ -16,6 +16,7 @@ export const PokemonCard = ({pokemon}: Props) => {
   return (
     // TODO: background color
     <Pressable
+      style={{flex: 1}}
       onPress={ () => navigation.navigate('PokemonScreen', { pokemonId: pokemon.id })}
     >
       <Card style={[
