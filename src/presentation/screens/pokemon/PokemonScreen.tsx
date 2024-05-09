@@ -7,7 +7,7 @@ import { FullScreenLoader } from '../../components/ui/FullScreenLoader';
 import { Chip, Text } from 'react-native-paper';
 import { Formatter } from '../../../config/helpers/formatter';
 import { FadeInImage } from '../../components/ui/FadeInImage';
-import { useSafeAreaFrame, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useContext } from 'react';
 import { ThemeContext } from '../../context/ThemeContext';
 
@@ -98,7 +98,7 @@ export const PokemonScreen = ({navigation, route}: Props) => {
     keyExtractor={item => item}
     showsHorizontalScrollIndicator={false}
     renderItem={({item}) => (
-      <Chip selectedColor='white'>{Formatter.capitalize(item)}</Chip>
+      <Chip selectedColor="white">{Formatter.capitalize(item)}</Chip>
     )}
   />
 
@@ -126,6 +126,7 @@ export const PokemonScreen = ({navigation, route}: Props) => {
     horizontal
     keyExtractor={item => item.name}
     showsHorizontalScrollIndicator={false}
+    centerContent
     renderItem={({item}) => (
       <View style={styles.statsContainer}>
         <Text style={{ flex: 1, color: 'white'}}>
@@ -143,6 +144,7 @@ export const PokemonScreen = ({navigation, route}: Props) => {
     horizontal
     keyExtractor={item => item}
     showsHorizontalScrollIndicator={false}
+    centerContent
     renderItem={({item}) => (
       <Chip selectedColor='white'>{Formatter.capitalize(item)}</Chip>
     )}
