@@ -1,5 +1,5 @@
 import { getColorFromImage } from "../../config/helpers/get-colors";
-import { Pokemon } from "../../domain/entities/pokemon";
+import { Move, Pokemon, Stat } from "../../domain/entities/pokemon";
 import { PokeAPIPokemon } from "../interfaces/pokeapi.interfaces";
 
 export class PokemonMapper {
@@ -18,7 +18,26 @@ export class PokemonMapper {
       sprites: sprites,
       types: data.types.map( type => type.type.name ),
       color: color,
+      games: data.game_indices.map( gameIndice => gameIndice.version.name),
+
+      abilities: data.abilities.map( abilitie => abilitie.ability.name ),
+      stats: this.getStats(data),
+      moves: this.getMoves(data),
     }
+  }
+
+  static getStats(data: PokeAPIPokemon): Stat[] {
+    return data.stats.map( statsData => ({
+      name: statsData.stat.name,
+      value: statsData.base_stat
+    }));
+  }
+
+  static getMoves(data: PokeAPIPokemon): Move[] {
+    return data.moves.map( movesData => ({
+      name: movesData.move.name,
+      level: movesData.version_group_details[0].level_learned_at
+    }));
   }
 
   static getSprites(data: PokeAPIPokemon): string[] {
